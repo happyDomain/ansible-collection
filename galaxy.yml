@@ -1,0 +1,16 @@
+---
+namespace: happydns
+name: happydomain
+version: 0.1.0
+readme: README.md
+authors:
+  - happyDomain Team <happydomain.org>
+  - Pierre-Olivier "nemunaire" Mercier <nemunaire@happydomain.org>
+description: Ansible collection to manage happyDomain
+license:
+-  CECILL-2.1
+tags: ['happydomain', 'dns', 'domains']
+repository: https://git.happydomain.org/ansible-collection
+documentation: https://help.happydomain.org
+homepage: https://happydomain.org
+issues: https://git.happydomain.org/ansible-collection/issues
