@@ -1,0 +1,9 @@
+---
+galaxy_info:
+  author: Pierre-Olivier Mercier <nemunaire@nemunai.re>
+  description: Setup or upgrade a happyDomain instance
+  company: happyDNS
+  license: CECILL-2.1
+  min_ansible_version: 2.9
+  galaxy_tags: ["happydomain", "domains", "dns"]
+dependencies: []

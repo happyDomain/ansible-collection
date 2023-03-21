@@ -1,0 +1,26 @@
+---
+instance_name: "happyDomain"
+happydomain_version: "latest"
+
+happydomain_data_dir: ""  # defaults to /var/lib/happydomain.{{ instance_name }} if not filled
+happydomain_inner_data_dir: "/data"
+
+happydomain_admin_bind: "./happydomain.sock"
+happydomain_baseurl: ""
+happydomain_custom_body_html: ""
+happydomain_custom_head_html: ""
+happydomain_default_nameserver: "127.0.0.1:53"
+happydomain_endpoint: ":8081"
+happydomain_external_auth: ""
+happydomain_external_url: "http://localhost:8081"
+happydomain_jwt_secret_key: ""
+happydomain_storage_leveldb_path: "./happydomain.db"
+happydomain_mail_from: "happyDomain <happydomain@localhost>"
+happydomain_mail_smtp_host: ""
+happydomain_mail_smtp_port: "465"
+happydomain_mail_smtp_username: ""
+happydomain_mail_smtp_password: ""
+happydomain_no_auth: "false"
+happydomain_ovh_application_key: ""
+happydomain_ovh_application_secret: ""
+happydomain_storage_engine: "leveldb"

@@ -1,0 +1,9 @@
+---
+- include_tasks: docker.yml
+
+- name: Ensure cleaning job runs every day.
+  cron:
+    name: "run {{ instance_name }} database cleaning"
+    hour: "3"
+    minute: "0"
+    job: "docker exec {{ instance_name }} hadmin /api/tidy -X POST"

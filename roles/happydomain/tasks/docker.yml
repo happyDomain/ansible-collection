@@ -1,0 +1,34 @@
+---
+- name: "launch happyDomain container ({{ instance_name }})"
+  docker_container:
+    name: "{{ instance_name }}"
+    image: "happydomain/happydomain:{{ happydomain_version }}"
+    pull: true
+    volumes:
+      - "{% if happydomain_data_dir != "" %}{{ happydomain_data_dir }}{% else %}/var/lib/{% if instance_name != "happyDomain" %}happydomain.{% endif %}{{ instance_name }}{% endif %}:{{ happydomain_inner_data_dir }}"
+    state: started
+    restart_policy: unless-stopped
+    memory: 256M
+    memory_swap: 512M
+    env:
+      HAPPYDOMAIN_ADMIN_BIND: "{{ happydomain_admin_bind }}"
+      HAPPYDOMAIN_BIND: "0.0.0.0:8081"
+      HAPPYDOMAIN_BASEURL: "{{ happydomain_baseurl }}"
+      HAPPYDOMAIN_CUSTOM_HEAD_HTML: "{{ happydomain_custom_head_html }}"
+      HAPPYDOMAIN_DEFAULT_NS: "{{ happydomain_default_nameserver }}"
+      HAPPYDOMAIN_EXTERNAL_AUTH: "{{ happydomain_external_auth }}"
+      HAPPYDOMAIN_EXTERNALURL: "{{ happydomain_external_url }}"
+      HAPPYDOMAIN_JWT_SECRET_KEY: "{{ happydomain_jwt_secret_key }}"
+      HAPPYDOMAIN_LEVELDB_PATH: "{{ happydomain_storage_leveldb_path }}"
+      HAPPYDOMAIN_MAIL_FROM: "{{ happydomain_mail_from }}"
+      HAPPYDOMAIN_MAIL_SMTP_HOST: "{{ happydomain_mail_smtp_host }}"
+      HAPPYDOMAIN_MAIL_SMTP_PORT: "{{ happydomain_mail_smtp_port }}"
+      HAPPYDOMAIN_MAIL_SMTP_USERNAME: "{{ happydomain_mail_smtp_username }}"
+      HAPPYDOMAIN_MAIL_SMTP_PASSWORD: "{{ happydomain_mail_smtp_password }}"
+      HAPPYDOMAIN_MAIL_SMTP_TLS_NO_VERIFY: "{{ happydomain_mail_smtp_tls_no_verify }}"
+      HAPPYDOMAIN_NO_AUTH: "{{ happydomain_no_auth }}"
+      HAPPYDOMAIN_OVH_APPLICATION_KEY: "{{ happydomain_ovh_application_key }}"
+      HAPPYDOMAIN_OVH_APPLICATION_SECRET: "{{ happydomain_ovh_application_secret }}"
+      HAPPYDOMAIN_STORAGE_ENGINE: "{{ happydomain_storage_engine }}"
+    published_ports:
+      - "{{ happydomain_bind }}:8081"
