@@ -5,7 +5,7 @@
     image: "happydomain/happydomain:{{ happydomain_version }}"
     pull: true
     volumes:
-      - "{% if happydomain_data_dir != "" %}{{ happydomain_data_dir }}{% else %}/var/lib/{% if instance_name != "happyDomain" %}happydomain.{% endif %}{{ instance_name }}{% endif %}:{{ happydomain_inner_data_dir }}"
+      - "{% if happydomain_data_dir != '' %}{{ happydomain_data_dir }}{% else %}/var/lib/{% if instance_name != 'happyDomain' %}happydomain.{% endif %}{{ instance_name }}{% endif %}:{{ happydomain_inner_data_dir }}"
     state: started
     restart_policy: unless-stopped
     memory: 256M
