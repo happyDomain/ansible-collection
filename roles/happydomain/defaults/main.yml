@@ -1,4 +1,6 @@
 ---
+use_container: false
+
 instance_name: "happyDomain"
 happydomain_version: "latest"
 

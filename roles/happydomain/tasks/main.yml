@@ -1,5 +1,9 @@
 ---
+- include_tasks: download.yml
+  when: not use_container
+
 - include_tasks: docker.yml
+  when: use_container
 
 - name: Ensure cleaning job runs every day.
   ansible.builtin.cron:

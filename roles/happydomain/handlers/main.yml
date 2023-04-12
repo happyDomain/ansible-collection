@@ -1,0 +1,9 @@
+---
+- name: restart happyDomain
+  ansible.builtin.service:
+    name: happydomain
+    state: restarted
+
+- name: reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true

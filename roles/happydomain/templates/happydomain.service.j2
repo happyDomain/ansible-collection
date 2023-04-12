@@ -1,0 +1,14 @@
+[Unit]
+Description=happyDomain Domain Managment Server
+After=network.target nss-lookup.target
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/happydomain
+WorkingDirectory={% if happydomain_data_dir != '' %}{{ happydomain_data_dir }}{% else %}/var/lib/happydomain{% if instance_name != 'happyDomain' %}.{{ instance_name }}{% endif %}{% endif %}
+
+User=happydomain
+Group=happydomain
+
+[Install]
+WantedBy=multi-user.target

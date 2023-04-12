@@ -1,0 +1,58 @@
+{% if happydomain_admin_bind is defined and happydomain_admin_bind != "" %}
+admin-bind={{ happydomain_admin_bind }}
+{% endif %}
+{% if happydomain_bind is defined and happydomain_bind != "" %}
+bind={{ happydomain_bind }}
+{% endif %}
+{% if happydomain_baseurl is defined and happydomain_baseurl != "" %}
+baseurl={{ happydomain_baseurl }}
+{% endif %}
+{% if happydomain_custom_head_html is defined and happydomain_custom_head_html != "" %}
+custom-head-html={{ happydomain_custom_head_html }}
+{% endif %}
+{% if happydomain_custom_body_html is defined and happydomain_custom_body_html != "" %}
+custom-body-html={{ happydomain_custom_body_html }}
+{% endif %}
+{% if happydomain_default_nameserver is defined and happydomain_default_nameserver != "" %}
+default-ns={{ happydomain_default_nameserver }}
+{% endif %}
+{% if happydomain_external_auth is defined and happydomain_external_auth != "" %}
+external-auth={{ happydomain_external_auth }}
+{% endif %}
+{% if happydomain_external_url is defined and happydomain_external_url != "" %}
+externalurl={{ happydomain_external_url }}
+{% endif %}
+{% if happydomain_jwt_secret_key is defined and happydomain_jwt_secret_key != "" %}
+jwt-secret-key={{ happydomain_jwt_secret_key }}
+{% endif %}
+leveldb-path={{ happydomain_storage_leveldb_path | default(happydomain_data_dir + '/happydomain.db') }}
+{% if happydomain_mail_from is defined and happydomain_mail_from != "" %}
+mail-from={{ happydomain_mail_from }}
+{% endif %}
+{% if happydomain_mail_smtp_host is defined and happydomain_mail_smtp_host != "" %}
+mail-smtp-host={{ happydomain_mail_smtp_host }}
+{% endif %}
+{% if happydomain_mail_smtp_port is defined and happydomain_mail_smtp_port != "" %}
+mail-smtp-port={{ happydomain_mail_smtp_port }}
+{% endif %}
+{% if happydomain_mail_smtp_username is defined and happydomain_mail_smtp_username != "" %}
+mail-smtp-username={{ happydomain_mail_smtp_username }}
+{% endif %}
+{% if happydomain_mail_smtp_password is defined and happydomain_mail_smtp_password != "" %}
+mail-smtp-password={{ happydomain_mail_smtp_password }}
+{% endif %}
+{% if happydomain_mail_smtp_tls_no_verify is defined and happydomain_mail_smtp_tls_no_verify != "" %}
+mail-smtp-tls-no-verify={{ happydomain_mail_smtp_tls_no_verify }}
+{% endif %}
+{% if happydomain_no_auth is defined and happydomain_no_auth != "" %}
+no-auth={{ happydomain_no_auth }}
+{% endif %}
+{% if happydomain_storage_engine is defined and happydomain_storage_engine != "" %}
+storage-engine={{ happydomain_storage_engine }}
+{% endif %}
+{% if happydomain_ovh_application_key is defined and happydomain_ovh_application_key != "" %}
+ovh-application-key={{ happydomain_ovh_application_key }}
+{% endif %}
+{% if happydomain_ovh_application_secret is defined and happydomain_ovh_application_secret != "" %}
+ovh-application-secret={{ happydomain_ovh_application_secret }}
+{% endif %}

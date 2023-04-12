@@ -1,0 +1,10 @@
+#!/sbin/openrc-run
+# Copyright 2016-2017 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+description="happyDomain Domain Managment Server"
+pidfile=${pidfile:-"/run/${SVCNAME}.pid"}
+command="/usr/bin/happydomain"
+command_background="true"
+start_stop_daemon_args="--stdout /var/log/${SVCNAME}/${SVCNAME}.log \
+        --stderr /var/log/${SVCNAME}/${SVCNAME}.log -u happydomain -g happydomain"

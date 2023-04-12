@@ -1,0 +1,79 @@
+---
+- name: Download happydomain binary
+  ansible.builtin.get_url:
+    url: "https://get.happydomain.org/{% if happydomain_version == 'latest' %}master{% else %}{{ happydomain_version }}{% endif %}/happydomain-{{ ansible_system | lower }}-{% if ansible_architecture == 'armv7l' %}armv7{% elif ansible_architecture == 'aarch64' %}arm64{% elif ansible_architecture == 'x86_64' %}amd64{% else %}{{ ansible_architecture }}{% endif %}"
+    dest: /usr/bin/happydomain
+    mode: '0755'
+
+- name: "ensure happydomain group exists"
+  ansible.builtin.group:
+    name: happydomain
+    gid: 533
+    system: true
+
+- name: "ensure happydomain user exists"
+  ansible.builtin.user:
+    name: happydomain
+    comment: happyDomain user
+    shell: /sbin/nologin
+    uid: 533
+    group: happydomain
+    system: true
+    home: /var/lib/happydomain
+
+- name: "configure happyDomain"
+  ansible.builtin.template:
+    src: happydomain.conf.j2
+    dest: "/etc/happydomain.conf"
+    mode: 0755
+  notify:
+    - restart happyDomain
+
+- name: Create data directory
+  ansible.builtin.file:
+    path: "{% if happydomain_data_dir != '' %}{{ happydomain_data_dir }}{% else %}/var/lib/happydomain{% if instance_name != 'happyDomain' %}.{{ instance_name }}{% endif %}{% endif %}"
+    owner: happydomain
+    group: happydomain
+    state: directory
+
+- name: "setup init script for happyDomain"
+  ansible.builtin.copy:
+    src: happydomain.initd
+    dest: "/etc/init.d/happydomain{% if instance_name is defined and instance_name != 'happyDomain' %}.{{ instance_name }}{% endif %}"
+    mode: 0755
+  when: ansible_service_mgr == "openrc"
+
+- name: "create log dir for happydomain"
+  ansible.builtin.file:
+    path: "/var/log/happydomain{% if instance_name is defined and instance_name != 'happyDomain' %}.{{ instance_name }}{% endif %}"
+    mode: 0755
+    owner: happydomain
+    group: happydomain
+    state: directory
+  when: ansible_service_mgr == "openrc"
+
+- name: "setup systemd service for happyDomain"
+  ansible.builtin.template:
+    src: happydomain.service.j2
+    dest: "/lib/systemd/system/happydomain{% if instance_name is defined and instance_name != 'happyDomain' %}-{{ instance_name }}{% endif %}.service"
+    mode: 0644
+  notify:
+    - reload systemd
+  when: ansible_service_mgr == "systemd"
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: "ensure happyDomain is running and enabled"
+  ansible.builtin.service:
+    name: "happydomain{% if instance_name is defined and instance_name != 'happyDomain' %}.{{ instance_name }}{% endif %}"
+    enabled: yes
+    state: started
+  when: ansible_service_mgr == "openrc"
+
+- name: "ensure happyDomain is running and enabled"
+  ansible.builtin.service:
+    name: "happydomain{% if instance_name is defined and instance_name != 'happyDomain' %}-{{ instance_name }}{% endif %}"
+    enabled: yes
+    state: started
+  when: ansible_service_mgr == "systemd"
