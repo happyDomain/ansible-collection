@@ -12,7 +12,7 @@ steps:
     image: plugins/ansible:3
     commands:
       - ansible-galaxy collection build
-      - ansible-galaxy collection publish --token $${GALAXY_TOKEN} nemunaire-happydomain-${DRONE_TAG##v}.tar.gz
+      - ansible-galaxy collection publish --token $${GALAXY_TOKEN} happydns-happydomain-${DRONE_TAG##v}.tar.gz
     environment:
       GALAXY_TOKEN:
         from_secret: galaxy-token

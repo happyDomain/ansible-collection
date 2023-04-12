@@ -13,7 +13,7 @@ The collection is tested and supported with: `ansible >= 2.9`
 Before using the happyDomain collection, you need to install it using the below command:
 
 ```
-ansible-galaxy collection install nemunaire.happydomain
+ansible-galaxy collection install happydns.happydomain
 ```
 
 You can also include it in a `requirements.yml` file and install it via `ansible-galaxy collection install -r requirements.yml`, using the format:
@@ -21,7 +21,7 @@ You can also include it in a `requirements.yml` file and install it via `ansible
 ```yaml
 ---
 collections:
-  - name: nemunaire.happydomain
+  - name: happydns.happydomain
 ```
 
 
