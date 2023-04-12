@@ -1,6 +1,6 @@
 ---
 - name: "launch happyDomain container ({{ instance_name }})"
-  docker_container:
+  community.general.docker_container:
     name: "{{ instance_name }}"
     image: "happydomain/happydomain:{{ happydomain_version }}"
     pull: true
