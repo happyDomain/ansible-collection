@@ -1,5 +1,6 @@
 ---
 use_container: false
+state: present
 
 instance_name: "happyDomain"
 happydomain_version: "latest"

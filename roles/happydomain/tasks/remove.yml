@@ -1,0 +1,33 @@
+---
+- name: Stop the service
+  ansible.builtin.service:
+    name: happydomain
+    state: stopped
+    enabled: false
+
+- name: Remove happydomain binary
+  ansible.builtin.file:
+    path: /usr/bin/happydomain
+    state: absent
+
+- name: Remove happydomain user
+  ansible.builtin.user:
+    name: happydomain
+    state: absent
+
+- name: Remove happydomain group
+  ansible.builtin.group:
+    name: happydomain
+    state: absent
+
+- name: Remove init script
+  ansible.builtin.file:
+    path: /etc/init.d/happydomain
+    state: absent
+
+- name: Remove systemd service
+  ansible.builtin.file:
+    path: /lib/systemd/system/happydomain.service
+    state: absent
+  notify:
+    - reload systemd

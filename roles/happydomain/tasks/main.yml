@@ -1,13 +1,19 @@
 ---
-- include_tasks: download.yml
-  when: not use_container
+- block:
+    - include_tasks: download.yml
+      when: not use_container
 
-- include_tasks: docker.yml
-  when: use_container
+    - include_tasks: docker.yml
+      when: use_container
 
-- name: Ensure cleaning job runs every day.
-  ansible.builtin.cron:
-    name: "run {{ instance_name }} database cleaning"
-    hour: "3"
-    minute: "0"
-    job: "docker exec {{ instance_name }} hadmin /api/tidy -X POST"
+    - name: Ensure cleaning job runs every day.
+      ansible.builtin.cron:
+        name: "run {{ instance_name }} database cleaning"
+        hour: "3"
+        minute: "0"
+        job: "docker exec {{ instance_name }} hadmin /api/tidy -X POST"
+
+  when: state == 'present'
+
+- include_tasks: remove.yml
+  when: state == 'absent'
