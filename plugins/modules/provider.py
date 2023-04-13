@@ -48,6 +48,7 @@ def main():
 
     for s in providers:
         if s._srctype == p['type'] and s._comment == p['name']:
+            s = a.provider_get(s._id)
             found = True
 
             if p['state'] == 'absent':
