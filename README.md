@@ -34,7 +34,7 @@ To setup happyDomain as a local service (support Docker, openrc and systemd), us
 ```yaml
   roles:
     - name: happydns.happydomain.happydomain
-	  use_container: no # yes if you want to use Docker instead
+      use_container: no # yes if you want to use Docker instead
 ```
 
 ### Create a user account on your happyDomain instance
@@ -42,8 +42,8 @@ To setup happyDomain as a local service (support Docker, openrc and systemd), us
 ```yaml
   tasks:
     - happydns.happydomain.user:
-	  username: frederic@happydomain.org
-	  password: "mySuperS3cur3P4$$w0rd"
+        username: frederic@happydomain.org
+        password: "mySuperS3cur3P4$$w0rd"
 ```
 
 This will create and enabled the user (no need to validate the email).
@@ -56,15 +56,15 @@ Eg. for an AXFR/DDNS provider:
 ```yaml
   tasks:
     - happydns.happydomain.provider:
-	  name: test
-	  type: DDNSServer
-	  data:
-	    server: 192.168.0.42
-		keyname: ddns
-	    algorithm: hmac-sha256
-		keyblob: yourBASE64Secret==
-	  happydomain_username: frederic@happydomain.org
-	  happydomain_password: "mySuperS3cur3P4$$w0rd"
+        name: test
+        type: DDNSServer
+        data:
+          server: 192.168.0.42
+          keyname: ddns
+          algorithm: hmac-sha256
+          keyblob: yourBASE64Secret==
+        happydomain_username: frederic@happydomain.org
+        happydomain_password: "mySuperS3cur3P4$$w0rd"
 ```
 
 
@@ -73,10 +73,10 @@ Eg. for an AXFR/DDNS provider:
 ```yaml
   tasks:
     - happydns.happydomain.domain:
-	  provider: test
-	  domain: happydomain.tf
-	  happydomain_username: frederic@happydomain.org
-	  happydomain_password: "mySuperS3cur3P4$$w0rd"
+        provider: test
+        domain: happydomain.tf
+        happydomain_username: frederic@happydomain.org
+        happydomain_password: "mySuperS3cur3P4$$w0rd"
 ```
 
 ### Create a new record for a domain
@@ -86,11 +86,11 @@ First, you need a zoneid:
 ```yaml
   tasks:
     - happydns.happydomain.domain:
-	  provider: test
-	  domain: happydomain.tf
-	  happydomain_username: frederic@happydomain.org
-	  happydomain_password: "mySuperS3cur3P4$$w0rd"
-	register: my_zone
+        provider: test
+        domain: happydomain.tf
+        happydomain_username: frederic@happydomain.org
+        happydomain_password: "mySuperS3cur3P4$$w0rd"
+      register: my_zone
 ```
 
 Note the `register`ed variable.
@@ -100,16 +100,16 @@ Then, use the `happydns.happydomain.service` module:
 ```yaml
   tasks:
     - happydns.happydomain.service:
-	  happydomain_username: frederic@happydomain.org
-	  happydomain_password: "mySuperS3cur3P4$$w0rd"
-	  domain: happydomain.tf
-	  zone: "{{ my_zone.current_zone }}"
-	  subdomain: "test"
-	  type: abstract.Server
-	  service:
-        A: 127.0.0.1
-		AAAA: "::1"
-	  apply_changes: yes
+        happydomain_username: frederic@happydomain.org
+        happydomain_password: "mySuperS3cur3P4$$w0rd"
+        domain: happydomain.tf
+        zone: "{{ my_zone.current_zone }}"
+        subdomain: "test"
+        type: abstract.Server
+        service:
+          A: 127.0.0.1
+          AAAA: "::1"
+        apply_changes: yes
 ```
 
 This will add two records under `test.happydomain.tf`: A and AAAA (part of `abstract.Server`).
@@ -122,16 +122,16 @@ You'll also need a zoneid, see previous section. Then:
 ```yaml
   tasks:
     - happydns.happydomain.service:
-	  happydomain_username: frederic@happydomain.org
-	  happydomain_password: "mySuperS3cur3P4$$w0rd"
-	  domain: happydomain.tf
-	  zone: "{{ my_zone.current_zone }}"
-	  subdomain: "test"
-	  type: scvs.TXT
-	  service:
-        content: "This is a test record"
-	  state: absent
-	  apply_changes: yes
+        happydomain_username: frederic@happydomain.org
+        happydomain_password: "mySuperS3cur3P4$$w0rd"
+        domain: happydomain.tf
+        zone: "{{ my_zone.current_zone }}"
+        subdomain: "test"
+        type: scvs.TXT
+        service:
+          content: "This is a test record"
+        state: absent
+        apply_changes: yes
 ```
 
 This will remove all records matching:
