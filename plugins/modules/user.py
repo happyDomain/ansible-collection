@@ -18,7 +18,7 @@ def main():
             state=dict(type='str', default='present', choices=['absent', 'present']),
             username=dict(type='str', aliases=['name', 'email', 'happydomain_username']),
             password=dict(type='str', aliases=['passwd', 'happydomain_password'], no_log=True),
-            allowcommercials=dict(type='bool'),
+            allowcommercials=dict(type='bool', default=False),
             email_verified=dict(type='bool', default=True),
             socket=dict(type='path', default='/var/lib/happydomain/happydomain.sock'),
         )
