@@ -1,7 +1,7 @@
 ---
 namespace: happydns
 name: happydomain
-version: 0.2.3
+version: 0.3.0
 readme: README.md
 authors:
   - happyDomain Team <happydomain.org>
