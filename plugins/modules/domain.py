@@ -62,7 +62,7 @@ def main():
                 result['current_zone'] = d.current_zone.id
                 result['msg'] += " and zone imported"
             else:
-                result['current_zone'] = d.current_zone
+                result['current_zone'] = d.current_zone.id
             break
 
     if not found:
